@@ -17,13 +17,6 @@ const TYPING_LINES = [
   "Revenue optimization: +340% projected",
 ]
 
-// Shared clip-path wipe: content reveals upward from a hard edge
-const wipe = (delay = 0) => ({
-  initial: { clipPath: "inset(0 0 100% 0)" },
-  animate: { clipPath: "inset(0 0 0% 0)" },
-  transition: { delay, duration: 0.7, ease: [0.76, 0, 0.24, 1] },
-})
-
 export default function Hero() {
   const [morphIdx, setMorphIdx] = useState(0)
   const sectionRef = useRef<HTMLDivElement>(null)
@@ -55,7 +48,6 @@ export default function Hero() {
 
   return (
     <div className="hero-section" ref={sectionRef}>
-      {/* Background orbs — only this child has overflow:hidden */}
       <div className="hero-bg">
         <div className="deep-sphere deep-sphere-hero" />
         <motion.div className="orb orb-1" style={motion_.parallax ? { x: springX, y: springY } : {}} />
@@ -66,61 +58,55 @@ export default function Hero() {
       </div>
 
       <div className="hero-content">
-        {/* Eyebrow — clip wipe */}
-        <div style={{ overflow: "hidden", marginBottom: "1.5rem" }}>
-          <motion.div className="hero-eyebrow" style={{ marginBottom: 0 }} {...wipe(0.05)}>
-            AI Automation Platform
-          </motion.div>
-        </div>
+        <motion.div
+          className="hero-eyebrow"
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.1, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+        >
+          AI Automation Platform
+        </motion.div>
 
-        {/* AIZA — clip wipe, extra padding so legs never touch clip boundary */}
-        <div style={{ overflow: "hidden", paddingBottom: "0.15em" }}>
-          <motion.h1
-            className="hero-title"
-            style={{ marginBottom: 0 }}
-            {...wipe(0.18)}
-          >
-            AIZA
-          </motion.h1>
-        </div>
+        <motion.h1
+          className="hero-title"
+          initial={{ opacity: 0, y: 32, filter: "blur(12px)" }}
+          animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+          transition={{ delay: 0.2, duration: 1.0, ease: [0.16, 1, 0.3, 1] }}
+        >
+          AIZA
+        </motion.h1>
 
-        {/* Morph word — clip wipe per word change */}
-        <div style={{ overflow: "hidden", minHeight: "1.4em", marginBottom: "1.5rem" }}>
-          <motion.div
-            key={morphIdx}
-            className="hero-morph"
-            style={{ marginBottom: 0 }}
-            initial={{ clipPath: "inset(0 0 100% 0)" }}
-            animate={{ clipPath: "inset(0 0 0% 0)" }}
-            exit={{ clipPath: "inset(100% 0 0% 0)" }}
-            transition={{ duration: 0.5, ease: [0.76, 0, 0.24, 1] }}
-          >
-            {MORPH_WORDS[morphIdx]}
-          </motion.div>
-        </div>
+        <motion.div
+          key={morphIdx}
+          className="hero-morph"
+          initial={{ opacity: 0, y: 8, filter: "blur(6px)" }}
+          animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+          exit={{ opacity: 0, y: -8, filter: "blur(6px)" }}
+          transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+        >
+          {MORPH_WORDS[morphIdx]}
+        </motion.div>
 
-        {/* Typing sub — fade in (typing effect pairs better with fade) */}
         <motion.p
           className="hero-sub"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 0.55, duration: 0.7 }}
+          transition={{ delay: 0.5, duration: 0.9 }}
         >
           <span style={{ color: "var(--accent2)" }}>&gt; </span>
           {typed}
           <span className="typing-cursor" />
         </motion.p>
 
-        {/* CTA — clip wipe */}
-        <div style={{ overflow: "hidden" }}>
-          <motion.button
-            className="hero-cta"
-            {...wipe(0.7)}
-            onClick={() => window.scrollTo({ top: window.innerHeight, behavior: "smooth" })}
-          >
-            Explore the Platform <span>→</span>
-          </motion.button>
-        </div>
+        <motion.button
+          className="hero-cta"
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.7, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          onClick={() => window.scrollTo({ top: window.innerHeight, behavior: "smooth" })}
+        >
+          Explore the Platform <span>→</span>
+        </motion.button>
       </div>
 
       <div className="hero-scroll-hint">

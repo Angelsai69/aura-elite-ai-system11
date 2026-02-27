@@ -4,6 +4,7 @@ import Cursor from "./components/Cursor"
 import ScrollProgress from "./components/ScrollProgress"
 import TopNav from "./components/TopNav"
 import Hero from "./components/Hero"
+import Platform from "./components/Platform"
 import LogoStrip from "./components/LogoStrip"
 import Features from "./components/Features"
 import Testimonials from "./components/Testimonials"
@@ -14,7 +15,7 @@ import Footer from "./components/Footer"
 import AIChat from "./components/AIChat"
 import { useScrollEffects } from "./hooks/useScrollEffects"
 
-const SECTION_COUNT = 7
+const SECTION_COUNT = 8
 
 function ScrollBlurOverlay() {
   const { sectionBlur } = useScrollEffects(SECTION_COUNT)
@@ -42,12 +43,13 @@ export default function App() {
           <ScrollProgress sectionCount={SECTION_COUNT} />
           <main>
             {/* 1 */ }<Hero />
-            {/* 2 */ }<LogoStrip />
-            {/* 3 */ }<Features />
-            {/* 4 */ }<Testimonials />
-            {/* 5 */ }<DashboardPreview />
-            {/* 6 */ }<Demo />
-            {/* 7 */ }<CTA />
+            {/* 2 */ }<Platform />
+            {/* 3 */ }<LogoStrip />
+            {/* 4 */ }<Features />
+            {/* 5 */ }<Testimonials />
+            {/* 6 */ }<DashboardPreview />
+            {/* 7 */ }<Demo />
+            {/* 8 */ }<CTA />
           </main>
           <Footer />
           <AIChat />
